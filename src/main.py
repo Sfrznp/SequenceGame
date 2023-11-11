@@ -16,6 +16,9 @@ LINE_COLOR = (0, 0, 0)
 PLAYER_COLORS = [(255, 0, 0), (0, 0, 255)]
 TABLE_XY_END = CELL_SIZE * NUM_ROWS + 10
 
+UNASSIGNED = -1
+FREE_SPACE = -2
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 screen.fill((255, 0, 0))
 
@@ -50,7 +53,7 @@ def draw_board(board):
 
     for row in range(NUM_ROWS):
         for col in range(NUM_COLS):
-            if board[row][col] != -1:
+            if board[row][col] not in [UNASSIGNED, FREE_SPACE]:
                 color = PLAYER_COLORS[board[row][col]]
                 pygame.draw.circle(screen, color, ((col * CELL_SIZE + CELL_SIZE // 2)+10, (row * CELL_SIZE + CELL_SIZE // 2)+10), 20, 0)
 
@@ -58,33 +61,34 @@ def check_win(board, player):
     # Horizontal Check
     for row in range(NUM_ROWS):
         for col in range(NUM_COLS - 4):
-            if all(board[row][col + i] == player for i in range(5)):
+            if all(board[row][col + i] in [player, FREE_SPACE] for i in range(5)):
                 return True
     # Vertical Check
     for row in range(NUM_ROWS - 4):
         for col in range(NUM_COLS):
-            if all(board[row + i][col] == player for i in range(5)):
+            if all(board[row + i][col] in [player, FREE_SPACE] for i in range(5)):
                 return True
 
     # Down-Right Diagonal Check
     for row in range(NUM_ROWS - 4):
         for col in range(NUM_COLS - 4):
-            if all(board[row + i][col + i] == player for i in range(5)):
+            if all(board[row + i][col + i] in [player, FREE_SPACE] for i in range(5)):
                 return True
 
     # Up-Right Diagonal Check
     for row in range(4, NUM_ROWS):
         for col in range(NUM_COLS - 4):
-            if all(board[row - i][col + i] == player for i in range(5)):
+            if all(board[row - i][col + i] in [player, FREE_SPACE] for i in range(5)):
                 return True
-
-    # TODO: The corner elements belong to both the teams!   
       
     return False
 
 clock = pygame.time.Clock()
 current_player = 0
-board = [[-1 for _ in range(NUM_COLS)] for _ in range(NUM_ROWS)]
+board = [[UNASSIGNED for _ in range(NUM_COLS)] for _ in range(NUM_ROWS)]
+
+# Marking the corner squares as FREE_SPACE, as they belong to both teams.
+board[0][0] =  board[NUM_ROWS-1][0] =  board[0][NUM_COLS-1] =  board[NUM_ROWS-1][NUM_COLS-1] = FREE_SPACE
 
 while True:
     for event in pygame.event.get():
@@ -96,7 +100,8 @@ while True:
             clicked_row = mouseY // CELL_SIZE
             clicked_col = mouseX // CELL_SIZE
 
-            if board[clicked_row][clicked_col] == -1:
+            if  (clicked_row < NUM_ROWS and clicked_col < NUM_COLS) and board[clicked_row][clicked_col] == UNASSIGNED:
+
                 board[clicked_row][clicked_col] = current_player
 
                 if check_win(board, current_player):
