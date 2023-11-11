@@ -55,28 +55,31 @@ def draw_board(board):
                 pygame.draw.circle(screen, color, ((col * CELL_SIZE + CELL_SIZE // 2)+10, (row * CELL_SIZE + CELL_SIZE // 2)+10), 20, 0)
 
 def check_win(board, player):
+    # Horizontal Check
     for row in range(NUM_ROWS):
-        for col in range(NUM_COLS - 3):
+        for col in range(NUM_COLS - 4):
             if all(board[row][col + i] == player for i in range(5)):
                 return True
-
-    for row in range(NUM_ROWS - 3):
+    # Vertical Check
+    for row in range(NUM_ROWS - 4):
         for col in range(NUM_COLS):
             if all(board[row + i][col] == player for i in range(5)):
                 return True
 
-    for row in range(NUM_ROWS - 3):
-        for col in range(NUM_COLS - 3):
-            if all(board[row + i][col + j] == player for i in range(5) for j in range(5)):
+    # Down-Right Diagonal Check
+    for row in range(NUM_ROWS - 4):
+        for col in range(NUM_COLS - 4):
+            if all(board[row + i][col + i] == player for i in range(5)):
                 return True
 
-    for row in range(3, NUM_ROWS):
-        for col in range(NUM_COLS - 3):
-            if all(board[row - i][col + j] == player for i in range(5) for j in range(5)):
+    # Up-Right Diagonal Check
+    for row in range(4, NUM_ROWS):
+        for col in range(NUM_COLS - 4):
+            if all(board[row - i][col + i] == player for i in range(5)):
                 return True
-            
-    #Diagonal check!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+    # TODO: The corner elements belong to both the teams!   
+      
     return False
 
 clock = pygame.time.Clock()
