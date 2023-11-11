@@ -10,3 +10,9 @@ Functions to be implemented:
 - game
 - agent
 - main
+
+
+TO-DO
++ Adding the diagonal check to check-win function.
++ Have the whole game to work for a two player.
++ Add the agent using min-max.
