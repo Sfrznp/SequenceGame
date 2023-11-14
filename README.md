@@ -14,7 +14,7 @@ Functions to be implemented:
 
 TO-DO
 + DONE: Adding the diagonal check to check-win function.
-+ Have the whole game to work for a two player.
++ Have the whole game to work for a two player. => generating random cards for player!!
 + Add the agent using min-max.
 
 Additional comments:
