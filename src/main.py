@@ -209,12 +209,17 @@ def minimax(board, depth, is_maximizing_player, alpha, beta):
 
             # Simulate a Player 2's move
 
-            # print("Simulating Player 2's Move:")
-            # print("Player 2's Hand:", player2_hand)
-            # print("Move:",table[move[0]][move[1]], move[0], move[1] )
+            print("Simulating Player 2's Move:")
+            print("Depth = ", depth)
+            print("Player 2's Hand:", player2_hand)
+            print("Move:",table[move[0]][move[1]], move[0], move[1] )
 
             board[move[0]][move[1]] = 0  
             player2_hand.remove(table[move[0]][move[1]])
+
+            print("Player 2's Hand:", player2_hand)
+            print("Move:",table[move[0]][move[1]], move[0], move[1] )
+            print("=    =   =   =   =   =   =   =   =   =   =   =   ")
             evaluation = minimax(board, depth - 1, False, alpha, beta)
             
             # Undo Move
@@ -231,14 +236,18 @@ def minimax(board, depth, is_maximizing_player, alpha, beta):
         for move in legal_moves(board, player1_hand):
             # Simulating a Player 1's move
 
-            # print("Simulating Player 1's Move:")
-            # print("Player 1's Hand:", player1_hand)
-            # print("Move:",table[move[0]][move[1]], move[0], move[1] )
+            print("Simulating Player 1's Move:")
+            print("Depth = ", depth)
+            print("Player 1's Hand:", player1_hand)
+            print("Move:",table[move[0]][move[1]], move[0], move[1] )
 
             board[move[0]][move[1]] = 0  
             player1_hand.remove(table[move[0]][move[1]])
             evaluation = minimax(board, depth - 1, True, alpha, beta)
 
+            print("Player 1's Hand:", player1_hand)
+            print("Move:",table[move[0]][move[1]], move[0], move[1] )
+            print("=    =   =   =   =   =   =   =   =   =   =   =   ")
 
             # Undo Move
             board[move[0]][move[1]] = UNASSIGNED  
@@ -361,7 +370,7 @@ while True:
 
                 # Logic flows to this if condition after player 1's turn if AI_ENABLED is set to 1
                 if current_player == 1 and player_made_move and AI_ENABLED:
-                    ai_row, ai_col = find_best_move(board, 3)
+                    ai_row, ai_col = find_best_move(board, 4)
                     board[ai_row][ai_col] = current_player
 
                     print("AI's Hand: ", player2_hand)
