@@ -92,14 +92,8 @@ def draw_board(board, player, win):
                                    ((col * CELL_SIZE + CELL_SIZE // 2) + 10, (row * CELL_SIZE + CELL_SIZE // 2) + 10),
                                    25, 10)
             # Outline for valid moves
-            # if table[row][col] in player1_hand and current_player == 0 and board[row][col] == UNASSIGNED:
             if table[row][col] in player1_hand and board[row][col] == UNASSIGNED:
                 color = PLAYER_COLORS[0]
-                pygame.draw.rect(screen, color,
-                                 pygame.Rect(col * CELL_SIZE + 11, row * CELL_SIZE + 11, CELL_SIZE - 1, CELL_SIZE - 1),
-                                 3)
-            if table[row][col] in player2_hand and board[row][col] == UNASSIGNED:
-                color = PLAYER_COLORS[1]
                 pygame.draw.rect(screen, color,
                                  pygame.Rect(col * CELL_SIZE + 11, row * CELL_SIZE + 11, CELL_SIZE - 1, CELL_SIZE - 1),
                                  3)
@@ -146,6 +140,7 @@ def draw_board(board, player, win):
         text = font.render(f"Player {player + 1} turn!", True, PLAYER_COLORS[player], WHITE)
 
     screen.blit(text, (TABLE_XY_START + CELL_SIZE * 4, TABLE_XY_END + 40))
+
 
 
 def restart_display(player, win):
