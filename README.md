@@ -1,23 +1,18 @@
 # SequenceGame
 
+Goal: create an AI agent that can play the sequence game with a human player effectively. 
 
-Functions to be implemented:
+## Install pygame library
 
-- update table
-	- scoring
-	- token
-- distribute the cards
-- game
-- agent
-- main
+First, make sure to have the pygame library installed.
 
+Here is how:
 
-TO-DO
-+ DONE: Adding the diagonal check to check-win function.
-+ Have the whole game to work for a two player. => generating random cards for player!!
-+ Add the agent using min-max.
-  	- pacman => AI agent
-  	- ghost => Human
+pip install pygame
 
-Additional comments:
-+ Feature added: Corner squares now belong to both players.
+## Run the game! 
+
+Then run the code using following command:
+
+python3 main.py
+
